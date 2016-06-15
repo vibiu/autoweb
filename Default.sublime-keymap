@@ -1,0 +1,6 @@
+[
+    {
+        "keys": ["ctrl+alt+shift+r"],
+        "command": "autoweb"
+    }
+]
