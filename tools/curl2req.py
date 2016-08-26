@@ -80,8 +80,8 @@ def convert(curl):
         'url = "{url}"',
         'headers = {headers}',
         'data = {data}',
-        'if __name__ == \'__main__\' :',
-        '    resp = requests.{method}(url,headers=headers,data=data)',
+        'if __name__ == \'__main__\':',
+        '    resp = requests.{method}(url, headers=headers, data=data)',
         '    print(resp.status_code)',
         '    print(resp.content)',
     ]
