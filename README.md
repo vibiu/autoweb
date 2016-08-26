@@ -54,5 +54,3 @@ python req.py
 requests2.x
 
 ```
-
-## this is showzeng's test
