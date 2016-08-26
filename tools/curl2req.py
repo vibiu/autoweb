@@ -1,18 +1,30 @@
-import re
+"""Autoweb convert curl to python request."""
 import json
 
 
 def parse_head(curl):
+    """Parse curl content by split '-H'.
+
+    :param curl: curl content.
+    """
     param_list = curl.split("' -H '")
     return param_list
 
 
 def parse_kv(key_value):
+    """Parse keys and values.
+
+    :param key_value: key value string.
+    """
     kv_list = key_value.split(': ')
     return kv_list
 
 
 def build_head(head_list):
+    """Build heads use head list.
+
+    :param head_list: head_list.
+    """
     head_dict = {}
     for kv in head_list:
         kv_list = parse_kv(kv)
@@ -21,10 +33,14 @@ def build_head(head_list):
 
 
 def parse_curl(curl_content):
-    '''this can only parse a well write curl copied from
-    chrome or firefox console, 
-    end with --data or -compressed'''
+    """Parse curl content.
 
+    This can only parse a well write curl
+    copied fromchrome or firefox console,
+    end with --data or -compressed.
+
+    :param curl_content: curl content string.
+    """
     param_list = curl_content.split("' -H '")
 
     ender = param_list[-1]
@@ -44,26 +60,30 @@ def parse_curl(curl_content):
 
 
 def curl_from_path(path):
-    '''read curl content from path'''
+    """Read curl content from path.
 
+    :param path: curl file path.
+    """
     with open(path, 'r') as curl_file:
         curl_content = curl_file.read()
     return curl_content
 
 
 def convert(curl):
-    ''' convert the curl to a readable requests script'''
+    """Convert the curl to a readable requests scripts.
 
+    :param curl: curl content string.
+    """
     method = 'get'
     template_list = [
         'import requests',
         'url = "{url}"',
-        'headers={headers}',
-        'data={data}',
-        'if __name__ == \'__main__\':',
+        'headers = {headers}',
+        'data = {data}',
+        'if __name__ == \'__main__\' :',
         '    resp = requests.{method}(url,headers=headers,data=data)',
-        '    print resp.status_code',
-        '    print resp.content',
+        '    print(resp.status_code)',
+        '    print(resp.content)',
     ]
 
     url, head_dict, data = parse_curl(curl)
