@@ -77,11 +77,9 @@ def convert(curl):
     method = 'get'
     template_list = [
         'import requests',
-        '\n',
         'url = "{url}"',
         'headers = {headers}',
         'data = {data}',
-        '\n',
         'if __name__ == \'__main__\':',
         '    resp = requests.{method}(url, headers=headers, data=data)',
         '    print(resp.status_code)',
@@ -97,7 +95,8 @@ def convert(curl):
         data = 'None'
     headers = json.dumps(head_dict, indent=4)
 
-    template = '\n'.join(template_list)
+    template = '\n'.join(template_list).rstrip('\n')
+    template = '{}\n'.format(template)
     complete = template.format(
         url=url, headers=headers, method=method, data=data)
     return complete
