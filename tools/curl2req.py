@@ -47,7 +47,7 @@ def parse_curl(curl_content):
     ender_list = ender.split(' --')
 
     # useful infomation
-    url = param_list[0][6:]
+    url = param_list[0].rstrip('curl \'')
     head_list = param_list[1:-1] + [ender_list[0].strip('\'')]
     head_dict = build_head(head_list)
 
@@ -77,9 +77,11 @@ def convert(curl):
     method = 'get'
     template_list = [
         'import requests',
+        '\n',
         'url = "{url}"',
         'headers = {headers}',
         'data = {data}',
+        '\n',
         'if __name__ == \'__main__\':',
         '    resp = requests.{method}(url, headers=headers, data=data)',
         '    print(resp.status_code)',
