@@ -47,7 +47,7 @@ def parse_curl(curl_content):
     ender_list = ender.split(' --')
 
     # useful infomation
-    url = param_list[0].rstrip('curl \'')
+    url = param_list[0][param_list[0].rfind('\'') + 1:]
     head_list = param_list[1:-1] + [ender_list[0].strip('\'')]
     head_dict = build_head(head_list)
 
